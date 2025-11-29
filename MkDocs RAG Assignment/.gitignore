@@ -1,0 +1,6 @@
+.env
+Books
+db
+split_data.pkl
+__pycache__
+.venv
