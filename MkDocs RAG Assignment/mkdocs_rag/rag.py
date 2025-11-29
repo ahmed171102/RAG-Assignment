@@ -11,7 +11,9 @@ api_key = os.getenv("GOOGLE_API_KEY")
 # Initialize ChromaDB
 chroma_client = PersistentClient(path="db/")
 google_ef = embedding_functions.GoogleGenerativeAiEmbeddingFunction(api_key=api_key)
-collection = chroma_client.get_collection(name="MkDocsRAG", embedding_function=google_ef)
+
+# Use get_or_create to prevent "ImportError" crashes if DB is missing
+collection = chroma_client.get_or_create_collection(name="MkDocsRAG", embedding_function=google_ef)
 client = genai.Client(api_key=api_key)
 
 def get_answer(prompt: str, n_results: int = 8) -> str:
